@@ -13,3 +13,4 @@
 2. Run npx playwright install // to install browsers as well.
 3. Before running test go data-factory > signup-data.js file and update test_work_email. 
 4. Run npx playwright test --project chromium to run headless for chrome only.
+5. Run npx playwright show-report to check for results.
