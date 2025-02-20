@@ -1,10 +1,9 @@
 const { test } = require("@playwright/test");
 const { SignupPage } = require("../pages/signup-page");
 const { signupLocators } = require("../locators/signup-locators");
-const { CirculaStaging } = require("../state/state-staging");
-const { sign } = require("crypto");
+const { signupData } = require("../data-factory/signup-data");
 
-test.describe("Circula Signup", () => {
+test.describe("Circula Signup process", () => {
   let page;
   let signup;
 
@@ -13,12 +12,12 @@ test.describe("Circula Signup", () => {
     signup = new SignupPage(page);
   });
 
-  test("Signup Step1", async () => {
+  test("Signup flow in three steps", async () => {
     await signup.gotoSignup();
     await signup.acceptAllCookies();
     await signup.enterEmailAndPassword();
     await signup.chekTermsAndCondtion();
-    await signup.verifyEmail(process.env.TEST_WORK_EMAIL);
+    await signup.verifyEmail(signupData.test_work_email);
     await signup.SubmitStep1();
 
     //----------Step 2 ------------------------//
@@ -28,9 +27,9 @@ test.describe("Circula Signup", () => {
     await signup.enterPhonenumber();
 
 //----------Verifying Step 2 data------------------//
-    await signup.verifyFirstName(process.env.FIRST_NAME);
-    await signup.verifyLastName(process.env.LAST_NAME);
-    await signup.verfiyphoneNum(process.env.PHONENUMBER);
+    await signup.verifyFirstName(signupData.first_name);
+    await signup.verifyLastName(signupData.last_name);
+    await signup.verfiyphoneNum(signupData.phone_number);
     await signup.verifyEnableState(signupLocators.SubmitStep2);
 
     await signup.SubmitStep2();
@@ -40,16 +39,16 @@ test.describe("Circula Signup", () => {
     await signup.selectCountry(); //Sweden Country is selected here
     await signup.selectChannel();
 
-    await signup.verifyCompanyName(process.env.ORGANIZATION_NAME);
-    await signup.verifyCountry(process.env.COUNTRY);
-    await signup.verifyChannelSelected(process.env.CHANNEL);
+    await signup.verifyCompanyName(signupData.organization_name);
+    await signup.verifyCountry(signupData.country);
+    await signup.verifyChannelSelected(signupData.channel);
     await signup.verifyEnableState(signupLocators.SubmitStep3);
 
     await signup.SubmitStep3()
     
 //-----------Verify Account created sucessfully------------------//
 
-    await signup.verifySuccessMessage(process.env.SUCCESS_MESSAGE);
+    await signup.verifySuccessMessage(signupData.success_message);
   });
 
   test.afterAll(async () => {

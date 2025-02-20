@@ -1,6 +1,7 @@
 const { Base } = require("./base-page");
 const { signupLocators } = require("../locators/signup-locators");
 const { expect } = require("@playwright/test");
+const { signupData } = require("../data-factory/signup-data");
 require("dotenv").config();
 
 class SignupPage {
@@ -11,17 +12,17 @@ class SignupPage {
 
   async gotoSignup() {
     await this.page.goto(
-      "https://circula-qa-challenge.vercel.app/users/sign_up"
+      process.env.BASE_URL
     );
   }
 
   async enterEmailAndPassword() {
     await this.page
       .locator(signupLocators.emailTextfield)
-      .fill(process.env.TEST_WORK_EMAIL);
+      .fill(signupData.test_work_email);
     await this.page
       .locator(signupLocators.passwordTextfield)
-      .fill(process.env.TEST_PASSWORD);
+      .fill(signupData.test_password);
   }
 
   async acceptAllCookies() {
@@ -45,26 +46,26 @@ class SignupPage {
   async SubmitStep1() {
     await this.page
       .locator(signupLocators.TryforFreeBtn)
-      .click(process.env.TEST_PASSWORD);
+      .click();
   }
 
   //---------Step 2 ------------------//
   async enterFirstName() {
     await this.page
       .locator(signupLocators.firstName)
-      .fill(process.env.FIRST_NAME);
+      .fill(signupData.first_name);
   }
 
   async enterLastName() {
     await this.page
       .locator(signupLocators.lastName)
-      .fill(process.env.LAST_NAME);
+      .fill(signupData.last_name);
   }
 
   async enterPhonenumber() {
     await this.page
       .locator(signupLocators.phonenumber)
-      .fill(process.env.PHONENUMBER);
+      .fill(signupData.phone_number);
   }
 
   async verifyFirstName(fname) {
@@ -100,22 +101,21 @@ class SignupPage {
   async enterCompanyName() {
     await this.page
       .locator(signupLocators.OrganizationName)
-      .fill(process.env.ORGANIZATION_NAME);
+      .fill(signupData.organization_name);
   }
 
   async selectCountry() {
     await this.page.locator(signupLocators.RegisterCountry).click();
     await this.page.locator(signupLocators.RegisterCountry).clear();
-    await this.page
-      .locator(signupLocators.RegisterCountry)
-      .type(process.env.COUNTRY);
+    await this.page.locator(signupLocators.RegisterCountry).type(signupData.country);
+    await this.page.waitForTimeout(500);
     await this.page.keyboard.press("ArrowDown");
-    await this.page.keyboard.press("Enter");
+   await this.page.keyboard.press("Enter");
   }
 
   async selectChannel() {
     await this.page.locator(signupLocators.HearAboutUs).click();
-    const channel = process.env.CHANNEL;
+    const channel = signupData.channel;
     const channelval = `//div[@data-valuetext='${channel}']`;
     await this.page.locator(channelval).click();
   }
