@@ -1,11 +1,11 @@
 # circula-signup-test
-## This repo is autoamte the signup workflow and verify few cases.
+## This repo is autoamte the signup workflow of circula app and verify few cases.
 
-# This project is implemented and followed Page Object Model.
-- Pages folder contains Base and Signup pages, contains all the action and verficaiton fucntions  
-- Tests folder contains all the tests in workflow 
+### This project is implemented and followed Page Object Model.
+- Pages folder contains Base and Signup pages, contains all the verficaiton fucntions  
+- Tests folder contains all the tests and actions for signup workflows
 - Locators folder contains all the elements locators used for signup page.
-- data-factory contains data required for input
+- Data-factory contains data required for input
 - .ENV file contains Base URL for testing.
 
 # To execute follow these step.
