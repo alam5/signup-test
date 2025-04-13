@@ -1,4 +1,4 @@
-# circula-signup-test
+# signup-test
 ## This repo is autoamte the signup workflow of circula app and verify few cases.
 
 ### This project is implemented and followed Page Object Model.
